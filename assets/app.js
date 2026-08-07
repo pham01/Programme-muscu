@@ -1,7 +1,7 @@
 "use strict";
 
 const PROGRAM_START = new Date(2026, 7, 10, 12, 0, 0);
-const STORAGE_KEY = "fitmass-legacy-progress-v2";
+const STORAGE_KEY = "Programme-muscu-progress-v2";
 
 const exercise = (name, detail, tempo, sets, reps, rest) => ({
   type: "exercise", name, detail, tempo, sets, reps, rest
