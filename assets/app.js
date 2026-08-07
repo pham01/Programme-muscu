@@ -394,8 +394,8 @@ function renderPage(weekIndex) {
   const status = programStatus(weekIndex);
   const isHome = document.body.dataset.week === "current";
 
-  document.title = `${isHome ? "Semaine en cours" : `Semaine ${weekIndex + 1}`} - Fitmass Legacy`;
-  document.querySelector("meta[name='description']")?.setAttribute("content", `${weekTitle(weekIndex)} - 3 séances du programme Fitmass Legacy Advanced.`);
+  document.title = `${isHome ? "Semaine en cours" : `Semaine ${weekIndex + 1}`} - Programme muscu`;
+  document.querySelector("meta[name='description']")?.setAttribute("content", `${weekTitle(weekIndex)} - 3 séances du programme Programme muscu Advanced.`);
   document.getElementById("heroEyebrow").textContent = isHome ? "Accueil · semaine en cours" : `Cycle ${cycleIndex + 1} · ${cycleNames[cycleIndex]}`;
   document.getElementById("heroTitle").innerHTML = isHome
     ? `Ta semaine <span>en cours</span>`
