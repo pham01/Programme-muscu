@@ -473,6 +473,59 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .drawer-foot p { margin: 0; }
 .pwa-status { margin-top: 7px !important; color: var(--gold-light); font-weight: 750; }
 
+
+/* --- Démonstrations YouTube issues du PDF --- */
+.exercise-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.youtube-link {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(199, 164, 72, 0.42);
+  border-radius: 10px;
+  background: rgba(199, 164, 72, 0.12);
+  color: #5b4611;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+.youtube-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(199, 164, 72, 0.72);
+  background: rgba(199, 164, 72, 0.20);
+}
+.youtube-link:active { transform: translateY(0); }
+.youtube-play {
+  width: 23px;
+  height: 23px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #1d1d1e;
+  color: var(--gold-light);
+  font-size: 0.69rem;
+  line-height: 1;
+}
+.demo-source {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+@media (max-width: 520px) {
+  .youtube-link { width: 100%; }
+  .demo-source { width: 100%; }
+}
+
 </style>
 </head>
 <body data-week="14">
@@ -837,8 +890,68 @@ function metric(label, value) {
   return `<div class="metric"><span>${label}</span><strong>${escapeHtml(value || "-")}</strong></div>`;
 }
 
+const PDF_YOUTUBE_LINKS = {
+  "California press": "https://www.youtube.com/shorts/mbpnOPjF3Zg",
+  "Curl Larry Scott": "https://www.youtube.com/shorts/xYqj1WwsZKk",
+  "Curl Zottman": "https://www.youtube.com/shorts/qK_3JCtYkUU",
+  "Curl barre": "https://www.youtube.com/shorts/-BQQSYnhfl0",
+  "Curl incliné": "https://www.youtube.com/shorts/RPhFoQv0iCE",
+  "Dips": "https://www.youtube.com/shorts/MTWrCC1gTuU",
+  "Dips machine": "https://www.youtube.com/shorts/vBAcMMW8bMA",
+  "Développé couché": "https://www.youtube.com/shorts/7P562roxtSc",
+  "Développé incliné": "https://www.youtube.com/shorts/H95PY0GON2Y",
+  "Développé militaire": "https://www.youtube.com/shorts/5pjcqP_nqRA",
+  "Développé pectoraux machine": "https://www.youtube.com/shorts/eec87o7EYKE",
+  "Développé semi incliné": "https://www.youtube.com/shorts/BQCHk-I_BSo",
+  "Extension Poliquin": "https://www.youtube.com/shorts/kqYVWsnZOkI",
+  "Face pull": "https://youtu.be/0vG5hUTUQc0",
+  "Fentes bulgares": "https://www.youtube.com/shorts/D3-FltbX0-s",
+  "Fentes en déplacement": "https://youtube.com/shorts/o8LTxvg7NDQ",
+  "Hack Squat": "https://www.youtube.com/shorts/y3nJdbFb3Ng",
+  "Hyperextensions": "https://www.youtube.com/shorts/poGvLJxjgZQ",
+  "Leg curl": "https://youtu.be/wNkNdvn1zyk",
+  "Leg extension": "https://www.youtube.com/shorts/ys-M5FAk9MU",
+  "Mollets assis": "https://www.youtube.com/shorts/I5WjaL8TfT8",
+  "Mollets debout": "https://www.youtube.com/shorts/a1cu4Tv6SVc",
+  "Mollets à la presse à cuisses": "https://www.youtube.com/shorts/uf4CTOvTIXI",
+  "Overhead press": "https://www.youtube.com/shorts/nUPOH21Rkmg",
+  "Pec Deck": "https://www.youtube.com/shorts/REztw3a8ALU",
+  "Pompes": "https://www.youtube.com/shorts/xbciD15GlPs",
+  "Presse à cuisses": "https://www.youtube.com/shorts/xbaZ5dNirSY",
+  "Rowing buste penché": "https://www.youtube.com/shorts/qdoquGndifw",
+  "Shrugs": "https://www.youtube.com/shorts/7QhGuZ7mcEg",
+  "Soulevé de terre jambes tendues": "https://www.youtube.com/shorts/MSvRmkiGP4s",
+  "Squat avec cale sous les talons": "https://www.youtube.com/shorts/stT-RvtVa0U",
+  "Step up": "https://www.youtube.com/shorts/3CrCh-vhit0",
+  "Tirage bûcheron": "https://www.youtube.com/shorts/g9QVEb4lY5M",
+  "Tirage grand dorsal": "https://www.youtube.com/shorts/M_Dpv-oPUyI",
+  "Tirage horizontal": "https://youtu.be/t-riYvk1qUs",
+  "Tirage vertical": "https://www.youtube.com/shorts/IcE5c6qf4KE",
+  "Tractions": "https://youtu.be/meDjsSBBXXk",
+  "Tractions pronation": "https://youtu.be/meDjsSBBXXk",
+  "Écartés arrière d'épaule": "https://youtube.com/shorts/MTK0nHST4Jo",
+  "Écartés semi inclinés": "https://www.youtube.com/shorts/72a-7j0ZzSE",
+  "Élévations latérales": "https://www.youtube.com/shorts/67aqcWUYw2I",
+  "Élévations latérales complètes": "https://www.youtube.com/shorts/z93Z_iDyGPw"
+};
+
+function youtubeDemoFor(item) {
+  const direct = PDF_YOUTUBE_LINKS[item.name];
+  if (direct) {
+    return { url: direct, exact: true, label: "Voir la démo du PDF" };
+  }
+  const detail = item.detail ? ` ${item.detail}` : "";
+  const query = `${item.name}${detail} exercice musculation démonstration technique`;
+  return {
+    url: `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`,
+    exact: false,
+    label: "Rechercher la démo sur YouTube"
+  };
+}
+
 function renderExerciseCard(item, progressKey) {
   const isDone = Boolean(state.progress[progressKey]);
+  const demo = youtubeDemoFor(item);
   return `
     <article class="exercise-card${isDone ? " is-done" : ""}">
       <div class="exercise-top">
@@ -856,6 +969,19 @@ function renderExerciseCard(item, progressKey) {
         ${metric("Séries", item.sets)}
         ${metric("Reps", item.reps)}
         ${metric("Repos", item.rest)}
+      </div>
+      <div class="exercise-actions">
+        <a
+          class="youtube-link"
+          href="${demo.url}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="${escapeHtml(demo.label)} : ${escapeHtml(item.name)}"
+        >
+          <span class="youtube-play" aria-hidden="true">▶</span>
+          ${escapeHtml(demo.label)}
+        </a>
+        <span class="demo-source">${demo.exact ? "Lien direct extrait du PDF" : "Aucun lien direct détecté dans le PDF"}</span>
       </div>
     </article>`;
 }
