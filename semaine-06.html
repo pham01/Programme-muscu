@@ -938,7 +938,7 @@ const PDF_YOUTUBE_LINKS = {
 function youtubeDemoFor(item) {
   const direct = PDF_YOUTUBE_LINKS[item.name];
   if (direct) {
-    return { url: direct, exact: true, label: "Voir la démo du PDF" };
+    return { url: direct, exact: true, label: "Voir la démo" };
   }
   const detail = item.detail ? ` ${item.detail}` : "";
   const query = `${item.name}${detail} exercice musculation démonstration technique`;
@@ -981,7 +981,7 @@ function renderExerciseCard(item, progressKey) {
           <span class="youtube-play" aria-hidden="true">▶</span>
           ${escapeHtml(demo.label)}
         </a>
-        <span class="demo-source">${demo.exact ? "Lien direct extrait du PDF" : "Aucun lien direct détecté dans le PDF"}</span>
+        
       </div>
     </article>`;
 }
