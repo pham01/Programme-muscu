@@ -179,6 +179,119 @@ const workouts = {
   }
 };
 
+// Liens de démonstration provenant du PDF original.
+// L'ordre correspond aux exercices affichés dans chaque séance.
+const workoutVideos = {
+  push: [
+    "https://www.youtube.com/shorts/7P562roxtSc",
+    "https://www.youtube.com/shorts/H95PY0GON2Y",
+    "https://www.youtube.com/shorts/MTWrCC1gTuU",
+    "https://www.youtube.com/shorts/72a-7j0ZzSE",
+    "https://www.youtube.com/shorts/67aqcWUYw2I",
+    "https://www.youtube.com/shorts/mbpnOPjF3Zg"
+  ],
+  pull: [
+    "https://youtu.be/meDjsSBBXXk",
+    "https://youtu.be/t-riYvk1qUs",
+    "https://www.youtube.com/shorts/qdoquGndifw",
+    "https://youtube.com/shorts/MTK0nHST4Jo",
+    "https://www.youtube.com/shorts/RPhFoQv0iCE",
+    "https://www.youtube.com/shorts/-BQQSYnhfl0"
+  ],
+  legs: [
+    "https://www.youtube.com/shorts/y3nJdbFb3Ng",
+    "https://www.youtube.com/shorts/ys-M5FAk9MU",
+    "https://youtu.be/wNkNdvn1zyk",
+    "https://www.youtube.com/shorts/3CrCh-vhit0",
+    "https://www.youtube.com/shorts/poGvLJxjgZQ",
+    "https://www.youtube.com/shorts/a1cu4Tv6SVc"
+  ],
+  upper1: [
+    "https://www.youtube.com/shorts/IcE5c6qf4KE",
+    "https://www.youtube.com/shorts/eec87o7EYKE",
+    "https://www.youtube.com/shorts/g9QVEb4lY5M",
+    "https://www.youtube.com/shorts/5pjcqP_nqRA",
+    "https://www.youtube.com/shorts/72a-7j0ZzSE",
+    "https://www.youtube.com/shorts/vBAcMMW8bMA"
+  ],
+  lower1: [
+    "https://www.youtube.com/shorts/D3-FltbX0-s",
+    "https://www.youtube.com/shorts/y3nJdbFb3Ng",
+    "https://youtu.be/wNkNdvn1zyk",
+    "https://www.youtube.com/shorts/MSvRmkiGP4s",
+    "https://www.youtube.com/shorts/uf4CTOvTIXI",
+    "https://www.youtube.com/shorts/a1cu4Tv6SVc"
+  ],
+  upper2: [
+    "https://www.youtube.com/shorts/nUPOH21Rkmg",
+    "https://www.youtube.com/shorts/BQCHk-I_BSo",
+    "https://www.youtube.com/shorts/M_Dpv-oPUyI",
+    "https://youtu.be/0vG5hUTUQc0",
+    "https://www.youtube.com/shorts/z93Z_iDyGPw",
+    "https://www.youtube.com/shorts/RPhFoQv0iCE"
+  ],
+  lower2: [
+    "https://www.youtube.com/shorts/ys-M5FAk9MU",
+    "https://youtube.com/shorts/o8LTxvg7NDQ",
+    "https://www.youtube.com/shorts/xbaZ5dNirSY",
+    "https://www.youtube.com/shorts/poGvLJxjgZQ",
+    "https://www.youtube.com/shorts/I5WjaL8TfT8"
+  ],
+  fullbody1: [
+    "https://www.youtube.com/shorts/7P562roxtSc",
+    "https://www.youtube.com/shorts/qdoquGndifw",
+    "https://www.youtube.com/shorts/stT-RvtVa0U",
+    "https://www.youtube.com/shorts/D3-FltbX0-s",
+    "https://www.youtube.com/shorts/5pjcqP_nqRA",
+    "https://www.youtube.com/shorts/mbpnOPjF3Zg"
+  ],
+  fullbody2: [
+    "https://www.youtube.com/shorts/MSvRmkiGP4s",
+    "https://www.youtube.com/shorts/uf4CTOvTIXI",
+    "https://www.youtube.com/shorts/M_Dpv-oPUyI",
+    "https://www.youtube.com/shorts/H95PY0GON2Y",
+    "https://www.youtube.com/shorts/xYqj1WwsZKk",
+    "https://www.youtube.com/shorts/67aqcWUYw2I"
+  ],
+  pecsdos: [
+    "https://www.youtube.com/shorts/BQCHk-I_BSo",
+    "https://youtu.be/meDjsSBBXXk",
+    "https://www.youtube.com/shorts/MTWrCC1gTuU",
+    "https://www.youtube.com/shorts/g9QVEb4lY5M",
+    "https://www.youtube.com/shorts/REztw3a8ALU",
+    "https://www.youtube.com/shorts/qdoquGndifw",
+    "https://www.youtube.com/shorts/xbciD15GlPs",
+    "https://www.youtube.com/shorts/7QhGuZ7mcEg"
+  ],
+  epaulesbras: [
+    "https://www.youtube.com/shorts/5pjcqP_nqRA",
+    "https://www.youtube.com/shorts/67aqcWUYw2I",
+    "https://youtube.com/shorts/MTK0nHST4Jo",
+    "https://www.youtube.com/shorts/RPhFoQv0iCE",
+    "https://www.youtube.com/shorts/qK_3JCtYkUU",
+    "https://www.youtube.com/shorts/kqYVWsnZOkI"
+  ],
+  jambes: [
+    "https://youtu.be/wNkNdvn1zyk",
+    "https://www.youtube.com/shorts/ys-M5FAk9MU",
+    "https://www.youtube.com/shorts/y3nJdbFb3Ng",
+    "https://www.youtube.com/shorts/MSvRmkiGP4s",
+    "https://www.youtube.com/shorts/3CrCh-vhit0",
+    "https://www.youtube.com/shorts/a1cu4Tv6SVc"
+  ]
+};
+
+Object.entries(workoutVideos).forEach(([workoutKey, urls]) => {
+  let videoIndex = 0;
+  workouts[workoutKey].blocks.forEach(block => {
+    const items = block.type === "superset" ? block.exercises : [block];
+    items.forEach(item => {
+      if (urls[videoIndex]) item.video = urls[videoIndex];
+      videoIndex += 1;
+    });
+  });
+});
+
 const schedules = [
   ["push", "pull", "legs"],
   ["push", "pull", "legs"],
@@ -374,6 +487,7 @@ function renderExerciseCard(item, progressKey) {
         <div>
           <h3>${escapeHtml(item.name)}</h3>
           ${item.detail ? `<p>${escapeHtml(item.detail)}</p>` : ""}
+          ${item.video ? `<a class="video-link" href="${escapeHtml(item.video)}" target="_blank" rel="noopener noreferrer" aria-label="Voir la démonstration YouTube de ${escapeHtml(item.name)}"><span aria-hidden="true">▶</span> Démo YouTube</a>` : ""}
         </div>
         <label class="done-check">
           <input type="checkbox" data-progress-key="${progressKey}" ${isDone ? "checked" : ""}>

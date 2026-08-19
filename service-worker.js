@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "fitmass-legacy-v6";
+const CACHE_NAME = "fitmass-legacy-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
