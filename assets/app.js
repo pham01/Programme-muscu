@@ -1,7 +1,8 @@
 "use strict";
 
 const PROGRAM_START = new Date(2026, 7, 10, 12, 0, 0);
-const STORAGE_KEY = "Programme-muscu-progress-v2";
+const STORAGE_KEY = "fitmass-legacy-progress-v2";
+const WEIGHTS_STORAGE_KEY = "fitmass-legacy-weights-v1";
 
 const exercise = (name, detail, tempo, sets, reps, rest) => ({
   type: "exercise", name, detail, tempo, sets, reps, rest
@@ -204,7 +205,20 @@ const cycleNames = [
   "Split avancé"
 ];
 
-const state = { progress: loadProgress() };
+const state = { progress: loadProgress(), weights: loadWeights() };
+
+function loadWeights() {
+  try {
+    const value = JSON.parse(localStorage.getItem(WEIGHTS_STORAGE_KEY));
+    return value && typeof value === "object" ? value : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveWeights() {
+  try { localStorage.setItem(WEIGHTS_STORAGE_KEY, JSON.stringify(state.weights)); } catch {}
+}
 
 function loadProgress() {
   try {
@@ -310,6 +324,48 @@ function metric(label, value) {
   return `<div class="metric"><span>${label}</span><strong>${escapeHtml(value || "-")}</strong></div>`;
 }
 
+function targetRepsForSet(reps, setIndex, setCount) {
+  const text = String(reps || "").trim();
+  const parts = text.split("-").map(part => part.trim()).filter(Boolean);
+  if (parts.length === setCount && parts.every(part => /^\d+(?:[.,]\d+)?$/.test(part))) {
+    return parts[setIndex] || text;
+  }
+  return text;
+}
+
+function renderSetLoads(item, progressKey) {
+  const setCount = Math.max(1, Number.parseInt(item.sets, 10) || 1);
+  const fields = Array.from({ length: setCount }, (_, index) => {
+    const weightKey = `${progressKey}-set${index + 1}`;
+    const value = state.weights[weightKey] ?? "";
+    const reps = targetRepsForSet(item.reps, index, setCount);
+    return `
+      <label class="load-field">
+        <span>Série ${index + 1}${reps ? `<small>${escapeHtml(reps)} rep${reps === "1" ? "" : "s"}</small>` : ""}</span>
+        <span class="load-input-wrap">
+          <input
+            type="number"
+            inputmode="decimal"
+            step="0.5"
+            data-weight-key="${weightKey}"
+            value="${escapeHtml(value)}"
+            placeholder="0"
+            aria-label="${escapeHtml(item.name)} - série ${index + 1} - charge en kilogrammes">
+          <span>kg</span>
+        </span>
+      </label>`;
+  }).join("");
+
+  return `
+    <div class="set-loads">
+      <div class="set-loads-head">
+        <strong>Charges par série</strong>
+        <span class="load-saved-note">Sauvegarde automatique</span>
+      </div>
+      <div class="set-loads-grid">${fields}</div>
+    </div>`;
+}
+
 function renderExerciseCard(item, progressKey) {
   const isDone = Boolean(state.progress[progressKey]);
   return `
@@ -330,6 +386,7 @@ function renderExerciseCard(item, progressKey) {
         ${metric("Reps", item.reps)}
         ${metric("Repos", item.rest)}
       </div>
+      ${renderSetLoads(item, progressKey)}
     </article>`;
 }
 
@@ -394,8 +451,8 @@ function renderPage(weekIndex) {
   const status = programStatus(weekIndex);
   const isHome = document.body.dataset.week === "current";
 
-  document.title = `${isHome ? "Semaine en cours" : `Semaine ${weekIndex + 1}`} - Programme muscu`;
-  document.querySelector("meta[name='description']")?.setAttribute("content", `${weekTitle(weekIndex)} - 3 séances du programme Programme muscu Advanced.`);
+  document.title = `${isHome ? "Semaine en cours" : `Semaine ${weekIndex + 1}`} - Fitmass Legacy`;
+  document.querySelector("meta[name='description']")?.setAttribute("content", `${weekTitle(weekIndex)} - 3 séances du programme Fitmass Legacy Advanced.`);
   document.getElementById("heroEyebrow").textContent = isHome ? "Accueil · semaine en cours" : `Cycle ${cycleIndex + 1} · ${cycleNames[cycleIndex]}`;
   document.getElementById("heroTitle").innerHTML = isHome
     ? `Ta semaine <span>en cours</span>`
@@ -463,6 +520,7 @@ function renderPage(weekIndex) {
   updateProgressLabels(weekIndex);
   bindSessions();
   bindProgress(weekIndex);
+  bindWeights();
   bindReset(weekIndex);
 }
 
@@ -509,6 +567,21 @@ function bindProgress(weekIndex) {
     input.closest(".exercise-card")?.classList.toggle("is-done", input.checked);
     saveProgress();
     updateProgressLabels(weekIndex);
+  });
+}
+
+function bindWeights() {
+  const mount = document.getElementById("weekMount");
+  if (!mount) return;
+
+  mount.addEventListener("input", event => {
+    const input = event.target.closest("input[data-weight-key]");
+    if (!input) return;
+    const key = input.dataset.weightKey;
+    const value = input.value.trim();
+    if (value === "") delete state.weights[key];
+    else state.weights[key] = value;
+    saveWeights();
   });
 }
 

@@ -1,4 +1,4 @@
-Programme muscu - APPLICATION WEB INSTALLABLE (PWA)
+FITMASS LEGACY - APPLICATION WEB INSTALLABLE (PWA)
 =====================================================
 
 CONTENU
@@ -26,7 +26,7 @@ INSTALLATION SUR ANDROID AVEC GOOGLE CHROME
 2. Ouvre le menu burger du site et touche "Installer l'app sur ce téléphone".
 3. Si Chrome n'affiche pas encore la fenêtre, ouvre le menu ⋮ de Chrome puis
    choisis "Installer l'application" ou "Ajouter à l'écran d'accueil".
-4. L'icône Programme muscu apparaîtra sur l'écran d'accueil et l'application
+4. L'icône Fitmass Legacy apparaîtra sur l'écran d'accueil et l'application
    s'ouvrira sans la barre d'adresse de Chrome.
 
 IMPORTANT

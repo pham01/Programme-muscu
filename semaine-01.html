@@ -9,13 +9,13 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
-  <meta name="application-name" content="Programme muscu">
+  <meta name="application-name" content="Fitmass Legacy">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Programme muscu">
+  <meta name="apple-mobile-web-app-title" content="Fitmass Legacy">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="Programme muscu Advanced - semaine d'entraînement.">
-  <title>Programme muscu</title>
+  <meta name="description" content="Programme Fitmass Legacy Advanced - semaine d'entraînement.">
+  <title>Fitmass Legacy</title>
   <style>
 :root {
   color-scheme: dark;
@@ -474,56 +474,108 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .pwa-status { margin-top: 7px !important; color: var(--gold-light); font-weight: 750; }
 
 
-/* --- Démonstrations YouTube issues du PDF --- */
-.exercise-actions {
+
+/* --- Saisie des charges par série --- */
+.set-loads {
+  margin-top: 15px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+.set-loads-head {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
 }
-.youtube-link {
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 9px 12px;
-  border: 1px solid rgba(199, 164, 72, 0.42);
-  border-radius: 10px;
-  background: rgba(199, 164, 72, 0.12);
-  color: #5b4611;
-  font-size: 0.78rem;
-  font-weight: 900;
-  text-decoration: none;
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+.set-loads-head strong {
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
 }
-.youtube-link:hover {
-  transform: translateY(-1px);
-  border-color: rgba(199, 164, 72, 0.72);
-  background: rgba(199, 164, 72, 0.20);
-}
-.youtube-link:active { transform: translateY(0); }
-.youtube-play {
-  width: 23px;
-  height: 23px;
-  display: inline-grid;
-  place-items: center;
-  border-radius: 7px;
-  background: #1d1d1e;
-  color: var(--gold-light);
-  font-size: 0.69rem;
-  line-height: 1;
-}
-.demo-source {
-  display: inline-flex;
-  align-items: center;
-  margin-left: 2px;
+.set-loads-head span {
   color: var(--muted);
   font-size: 0.72rem;
+  text-align: right;
+}
+.set-loads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 9px;
+}
+.load-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.load-field > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+.load-field small {
+  color: var(--gold-light);
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.load-input-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.035);
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.load-input-wrap:focus-within {
+  border-color: rgba(227, 200, 110, 0.72);
+  background: rgba(199, 164, 72, 0.08);
+  box-shadow: 0 0 0 3px rgba(199, 164, 72, 0.11);
+}
+.load-input-wrap input {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 8px 11px 11px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 850;
+  appearance: textfield;
+}
+.load-input-wrap input::-webkit-outer-spin-button,
+.load-input-wrap input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+.load-input-wrap > span {
+  padding: 0 10px 0 2px;
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+.load-saved-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.load-saved-note::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(118, 207, 150, 0.10);
 }
 @media (max-width: 520px) {
-  .youtube-link { width: 100%; }
-  .demo-source { width: 100%; }
+  .set-loads-head { align-items: flex-start; }
+  .set-loads-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 </style>
@@ -534,7 +586,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
       <button class="menu-button" id="menuButton" type="button" aria-label="Ouvrir le menu" aria-controls="menuDrawer" aria-expanded="false">
         <span class="menu-icon" aria-hidden="true"></span>
       </button>
-      <a class="brand" href="index.html">Programme <span>Muscu</span></a>
+      <a class="brand" href="index.html">Fitmass <span>Legacy</span></a>
       <a class="current-pill" id="headerCurrentWeek" href="index.html" aria-label="Revenir à la semaine en cours"></a>
     </div>
   </header>
@@ -576,12 +628,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   <noscript><div class="shell" style="padding:24px 0;color:#f5f2e9">JavaScript doit être activé pour afficher les entraînements.</div></noscript>
   <main class="shell" id="weekMount"></main>
 
-  <footer><div class="shell"><strong>Build your muscu.</strong> Une page distincte par semaine, adaptée à GitHub Pages.</div></footer>
+  <footer><div class="shell"><strong>Build your legacy.</strong> Une page distincte par semaine, adaptée à GitHub Pages.</div></footer>
   <script>
 "use strict";
 
 const PROGRAM_START = new Date(2026, 7, 10, 12, 0, 0);
-const STORAGE_KEY = "Programme-muscu-progress-v2";
+const STORAGE_KEY = "fitmass-legacy-progress-v2";
+const WEIGHTS_STORAGE_KEY = "fitmass-legacy-weights-v1";
 
 const exercise = (name, detail, tempo, sets, reps, rest) => ({
   type: "exercise", name, detail, tempo, sets, reps, rest
@@ -784,7 +837,20 @@ const cycleNames = [
   "Split avancé"
 ];
 
-const state = { progress: loadProgress() };
+const state = { progress: loadProgress(), weights: loadWeights() };
+
+function loadWeights() {
+  try {
+    const value = JSON.parse(localStorage.getItem(WEIGHTS_STORAGE_KEY));
+    return value && typeof value === "object" ? value : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveWeights() {
+  try { localStorage.setItem(WEIGHTS_STORAGE_KEY, JSON.stringify(state.weights)); } catch {}
+}
 
 function loadProgress() {
   try {
@@ -890,68 +956,50 @@ function metric(label, value) {
   return `<div class="metric"><span>${label}</span><strong>${escapeHtml(value || "-")}</strong></div>`;
 }
 
-const PDF_YOUTUBE_LINKS = {
-  "California press": "https://www.youtube.com/shorts/mbpnOPjF3Zg",
-  "Curl Larry Scott": "https://www.youtube.com/shorts/xYqj1WwsZKk",
-  "Curl Zottman": "https://www.youtube.com/shorts/qK_3JCtYkUU",
-  "Curl barre": "https://www.youtube.com/shorts/-BQQSYnhfl0",
-  "Curl incliné": "https://www.youtube.com/shorts/RPhFoQv0iCE",
-  "Dips": "https://www.youtube.com/shorts/MTWrCC1gTuU",
-  "Dips machine": "https://www.youtube.com/shorts/vBAcMMW8bMA",
-  "Développé couché": "https://www.youtube.com/shorts/7P562roxtSc",
-  "Développé incliné": "https://www.youtube.com/shorts/H95PY0GON2Y",
-  "Développé militaire": "https://www.youtube.com/shorts/5pjcqP_nqRA",
-  "Développé pectoraux machine": "https://www.youtube.com/shorts/eec87o7EYKE",
-  "Développé semi incliné": "https://www.youtube.com/shorts/BQCHk-I_BSo",
-  "Extension Poliquin": "https://www.youtube.com/shorts/kqYVWsnZOkI",
-  "Face pull": "https://youtu.be/0vG5hUTUQc0",
-  "Fentes bulgares": "https://www.youtube.com/shorts/D3-FltbX0-s",
-  "Fentes en déplacement": "https://youtube.com/shorts/o8LTxvg7NDQ",
-  "Hack Squat": "https://www.youtube.com/shorts/y3nJdbFb3Ng",
-  "Hyperextensions": "https://www.youtube.com/shorts/poGvLJxjgZQ",
-  "Leg curl": "https://youtu.be/wNkNdvn1zyk",
-  "Leg extension": "https://www.youtube.com/shorts/ys-M5FAk9MU",
-  "Mollets assis": "https://www.youtube.com/shorts/I5WjaL8TfT8",
-  "Mollets debout": "https://www.youtube.com/shorts/a1cu4Tv6SVc",
-  "Mollets à la presse à cuisses": "https://www.youtube.com/shorts/uf4CTOvTIXI",
-  "Overhead press": "https://www.youtube.com/shorts/nUPOH21Rkmg",
-  "Pec Deck": "https://www.youtube.com/shorts/REztw3a8ALU",
-  "Pompes": "https://www.youtube.com/shorts/xbciD15GlPs",
-  "Presse à cuisses": "https://www.youtube.com/shorts/xbaZ5dNirSY",
-  "Rowing buste penché": "https://www.youtube.com/shorts/qdoquGndifw",
-  "Shrugs": "https://www.youtube.com/shorts/7QhGuZ7mcEg",
-  "Soulevé de terre jambes tendues": "https://www.youtube.com/shorts/MSvRmkiGP4s",
-  "Squat avec cale sous les talons": "https://www.youtube.com/shorts/stT-RvtVa0U",
-  "Step up": "https://www.youtube.com/shorts/3CrCh-vhit0",
-  "Tirage bûcheron": "https://www.youtube.com/shorts/g9QVEb4lY5M",
-  "Tirage grand dorsal": "https://www.youtube.com/shorts/M_Dpv-oPUyI",
-  "Tirage horizontal": "https://youtu.be/t-riYvk1qUs",
-  "Tirage vertical": "https://www.youtube.com/shorts/IcE5c6qf4KE",
-  "Tractions": "https://youtu.be/meDjsSBBXXk",
-  "Tractions pronation": "https://youtu.be/meDjsSBBXXk",
-  "Écartés arrière d'épaule": "https://youtube.com/shorts/MTK0nHST4Jo",
-  "Écartés semi inclinés": "https://www.youtube.com/shorts/72a-7j0ZzSE",
-  "Élévations latérales": "https://www.youtube.com/shorts/67aqcWUYw2I",
-  "Élévations latérales complètes": "https://www.youtube.com/shorts/z93Z_iDyGPw"
-};
-
-function youtubeDemoFor(item) {
-  const direct = PDF_YOUTUBE_LINKS[item.name];
-  if (direct) {
-    return { url: direct, exact: true, label: "Voir la démo" };
+function targetRepsForSet(reps, setIndex, setCount) {
+  const text = String(reps || "").trim();
+  const parts = text.split("-").map(part => part.trim()).filter(Boolean);
+  if (parts.length === setCount && parts.every(part => /^\d+(?:[.,]\d+)?$/.test(part))) {
+    return parts[setIndex] || text;
   }
-  const detail = item.detail ? ` ${item.detail}` : "";
-  const query = `${item.name}${detail} exercice musculation démonstration technique`;
-  return {
-    url: `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`,
-    exact: false,
-    label: "Rechercher la démo sur YouTube"
-  };
+  return text;
+}
+
+function renderSetLoads(item, progressKey) {
+  const setCount = Math.max(1, Number.parseInt(item.sets, 10) || 1);
+  const fields = Array.from({ length: setCount }, (_, index) => {
+    const weightKey = `${progressKey}-set${index + 1}`;
+    const value = state.weights[weightKey] ?? "";
+    const reps = targetRepsForSet(item.reps, index, setCount);
+    return `
+      <label class="load-field">
+        <span>Série ${index + 1}${reps ? `<small>${escapeHtml(reps)} rep${reps === "1" ? "" : "s"}</small>` : ""}</span>
+        <span class="load-input-wrap">
+          <input
+            type="number"
+            inputmode="decimal"
+            step="0.5"
+            data-weight-key="${weightKey}"
+            value="${escapeHtml(value)}"
+            placeholder="0"
+            aria-label="${escapeHtml(item.name)} - série ${index + 1} - charge en kilogrammes">
+          <span>kg</span>
+        </span>
+      </label>`;
+  }).join("");
+
+  return `
+    <div class="set-loads">
+      <div class="set-loads-head">
+        <strong>Charges par série</strong>
+        <span class="load-saved-note">Sauvegarde automatique</span>
+      </div>
+      <div class="set-loads-grid">${fields}</div>
+    </div>`;
 }
 
 function renderExerciseCard(item, progressKey) {
   const isDone = Boolean(state.progress[progressKey]);
-  const demo = youtubeDemoFor(item);
   return `
     <article class="exercise-card${isDone ? " is-done" : ""}">
       <div class="exercise-top">
@@ -970,19 +1018,7 @@ function renderExerciseCard(item, progressKey) {
         ${metric("Reps", item.reps)}
         ${metric("Repos", item.rest)}
       </div>
-      <div class="exercise-actions">
-        <a
-          class="youtube-link"
-          href="${demo.url}"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="${escapeHtml(demo.label)} : ${escapeHtml(item.name)}"
-        >
-          <span class="youtube-play" aria-hidden="true">▶</span>
-          ${escapeHtml(demo.label)}
-        </a>
-        
-      </div>
+      ${renderSetLoads(item, progressKey)}
     </article>`;
 }
 
@@ -1047,8 +1083,8 @@ function renderPage(weekIndex) {
   const status = programStatus(weekIndex);
   const isHome = document.body.dataset.week === "current";
 
-  document.title = `${isHome ? "Semaine en cours" : `Semaine ${weekIndex + 1}`} - Programme muscu`;
-  document.querySelector("meta[name='description']")?.setAttribute("content", `${weekTitle(weekIndex)} - 3 séances du programme Programme muscu Advanced.`);
+  document.title = `${isHome ? "Semaine en cours" : `Semaine ${weekIndex + 1}`} - Fitmass Legacy`;
+  document.querySelector("meta[name='description']")?.setAttribute("content", `${weekTitle(weekIndex)} - 3 séances du programme Fitmass Legacy Advanced.`);
   document.getElementById("heroEyebrow").textContent = isHome ? "Accueil · semaine en cours" : `Cycle ${cycleIndex + 1} · ${cycleNames[cycleIndex]}`;
   document.getElementById("heroTitle").innerHTML = isHome
     ? `Ta semaine <span>en cours</span>`
@@ -1116,6 +1152,7 @@ function renderPage(weekIndex) {
   updateProgressLabels(weekIndex);
   bindSessions();
   bindProgress(weekIndex);
+  bindWeights();
   bindReset(weekIndex);
 }
 
@@ -1162,6 +1199,21 @@ function bindProgress(weekIndex) {
     input.closest(".exercise-card")?.classList.toggle("is-done", input.checked);
     saveProgress();
     updateProgressLabels(weekIndex);
+  });
+}
+
+function bindWeights() {
+  const mount = document.getElementById("weekMount");
+  if (!mount) return;
+
+  mount.addEventListener("input", event => {
+    const input = event.target.closest("input[data-weight-key]");
+    if (!input) return;
+    const key = input.dataset.weightKey;
+    const value = input.value.trim();
+    if (value === "") delete state.weights[key];
+    else state.weights[key] = value;
+    saveWeights();
   });
 }
 

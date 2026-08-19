@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Programme muscu - Programme 16 semaines",
-  "short_name": "Programme muscu",
-  "description": "Programme d'entraînement Programme muscu sur 16 semaines, 3 séances par semaine.",
+  "name": "Fitmass Legacy - Programme 16 semaines",
+  "short_name": "Fitmass Legacy",
+  "description": "Programme d'entraînement Fitmass Legacy sur 16 semaines, 3 séances par semaine.",
   "lang": "fr",
   "dir": "ltr",
   "start_url": "./index.html",
